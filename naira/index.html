@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>currency Converter</title>
+    <style>
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            margin:auto;
+            
+        }
+        h1{
+            color:lightgreen;
+        }
+        select{
+            padding:5px;
+            margin:15px;
+            display: inline;
+        }
+        input[type=number]{
+            width:100px;
+            padding:5px;
+            margin-left:140px;
+            font-size:15px;
+            border:none;
+            outline:none;
+        }
+        
+        #rate{
+            margin:auto;
+            color : green;
+            font-size:24px;
+        }
+        #show_conversion{
+            margin-left: 214px;
+            font-size: 19px;
+            color:lightgreen;
+        }
+        .container{
+        border: 2px solid white;
+            border-radius: 25px;
+            padding:5px;
+        }
+        body{
+            display:flex;
+            flex-direction: column;
+            height:100vh;
+            background: black;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+   
+    
+</head>
+<body>
+    <div class="container">
+<h1>Exchange Rate Calculator</h1>
+<select  id="currency_one">
+    <option value="USD" slected>USD</option>
+    <option value="EUR">EUR</option>
+    <option value="AED">AED</option>
+    <option value="AFN">AFN</option>
+    <option value="ALL">ALL</option>
+    <option value="AMD">AMD</option>
+    <option value="ANG">ANG</option>
+    <option value="AOA">AOA</option>
+    <option value="ARS">ARS</option>
+    <option value="AUD">AUD</option>
+    <option value="AWG">AWG</option>
+    <option value="AZN">AZN</option>
+    <option value="BAM">BAM</option>
+    <option value="BBD">BBD</option>
+    <option value="BDT">BDT</option>
+    <option value="BGN">BGN</option>
+    <option value="BHD">BHD</option>
+    <option value="BIF">BIF</option>
+    <option value="BMD">BMD</option>
+    <option value="BND">BND</option>
+    <option value="BOB">BOB</option>
+    <option value="BRL">BRL</option>
+    <option value="BSD">BSD</option>
+    <option value="BTN">BTN</option>
+    <option value="BWP">BWP</option>
+    <option value="BYN">BYN</option>  
+    <option value="CZK">CZK</option>
+    <option value="CRC">CRC</option>
+    <option value="GIP">GIP</option>
+    <option value="GHS">GHS</option>
+    <option value="GMD">GMD</option>
+    <option value="GNF">GNF</option>
+    
+
+  </select>
+<input type="number" name="number" id="amount_one" value="1">
+<br>
+<div id="rates">
+<p  id="show_conversion"></p>
+</div>
+<select name="" id="currency_two">
+    <option value="NGN" >NGN</option>
+</select>
+  <input type="number" name="number" id="amount_two" value="0">
+  </div>
+   <script>
+    const currency_one = document.getElementById('currency_one');
+const currency_two =  document.getElementById('currency_two');
+const amount_one =  document.getElementById('amount_one');
+const amount_two =  document.getElementById('amount_two');
+
+
+
+
+   function calculate(){
+       const currency_twice = currency_two.value;
+const currency_once = currency_one.value;
+   const xhr = new XMLHttpRequest();
+xhr.open("GET",`https://v6.exchangerate-api.com/v6/82b882390711d38bfa37df17/latest/${currency_once}`,true);
+xhr.send();
+xhr.onload = function(){
+if (this.status === 200) {
+const data =JSON.parse(this.responseText);
+const rates = data.conversion_rates[currency_twice].toFixed(2);
+const amount_once = amount_one.value;
+currency_one;
+
+const mainRate = rates * amount_once;
+document.getElementById("show_conversion").innerHTML = `1 ${currency_once} = ${rates} ${currency_twice}`;
+amount_two.value = mainRate.toFixed(2);
+;
+};
+}
+}
+
+currency_one.addEventListener('change', calculate);
+currency_two.addEventListener('change', calculate);
+amount_one.addEventListener('input', calculate);
+amount_two.addEventListener('input', calculate);
+
+  </script> --> 
+</body>
+</html>
